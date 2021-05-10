@@ -1,0 +1,18 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="toolBg" style="margin:0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span style="padding-left:24px ;">Confirmation</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog" style="margin-right: 4px;">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-dialog-content style="padding:2rem;margin: 0;text-align:center;">
+        <label class="msgcnt"> Are you sure you want to {{dialogData.Actiontype}} the {{dialogData.Catagory}} ?</label>
+    </mat-dialog-content>
+    <mat-dialog-actions style="margin: 0;padding: 0 16px;" fxLayoutAlign="space-between center" >
+        <button mat-button type="button" (click)="CloseClicked()" style="line-height: 32px;">Cancel</button>
+        <button mat-button type="button" class="btnBg" (click)="YesClicked()">Yes</button>
+    </mat-dialog-actions>
+</div>

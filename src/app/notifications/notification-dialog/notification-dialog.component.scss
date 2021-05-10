@@ -1,0 +1,42 @@
+//@import "src/@fuse/scss/fuse";
+.confirmation-dialog {
+  // @include media-breakpoint("xs") {
+  //   width: 100%;
+  // }
+
+  // @include media-breakpoint-up("sm") {
+  //   width: 440px;
+  // }
+  .mat-radio-button {
+    margin: 0 5px;
+  }
+  .mat-dialog-container {
+    padding: 0;
+    border-radius: 4px;
+  }
+
+  .dialog-content-wrapper {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    width: 23rem;
+    height: 12rem;
+  }
+  .toolBg {
+    background-color: #1f81f5 !important;
+    color: white !important;
+    font-family: 'Poppins-SemiBold';
+    font-size: 16px;
+    height: 3rem;
+  }
+  .btnBg{
+    background-color: #1f81f5 !important;
+    color: white !important;
+    line-height: 32px;
+  }
+  .msgcnt{
+    font-family: 'Poppins-SemiBold';
+    color: #474F5B;
+    font-size: 13px;
+  }
+}

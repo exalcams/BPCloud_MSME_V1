@@ -1,0 +1,103 @@
+<div class="page" fxLayout="column" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutAlign="end center" class="toolbar">
+        <div fxFlex=20></div>
+        <div fxFlex=60 fxLayout="row" fxLayoutAlign="center center">
+            <label class="title">MSME Vendor Confirmation</label>
+        </div>
+        <div fxFlex=20 fxLayout="row" fxLayoutAlign="end center">
+            <img src="/assets/images/logo.svg" style="width: 46px;padding-right: 1.5rem;">
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%;padding-top: 1.5rem;padding-bottom: 1rem;">
+        <div class="greetings" fxFlex=90 fxLayout="row" fxLayoutAlign="center center">
+            <label>Welcome {{Msme.name}}</label>
+        </div>
+    </div>
+    <div class="form-wrapper">
+        <form novalidate [formGroup]="msmeFormGroup" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-form-field class="form_field">
+                <mat-label>Vendor code</mat-label>
+                <input matInput autocomplete="off" formControlName="vendorCode"
+                    [ngStyle]="{'cursor': msmeFormGroup.get('vendorCode').disabled ? 'no-drop' : 'default' }">
+            </mat-form-field>
+
+            <mat-form-field class="form_field">
+                <mat-label>Name</mat-label>
+                <input matInput autocomplete="off" formControlName="name"
+                    [ngStyle]="{'cursor': msmeFormGroup.get('name').disabled ? 'no-drop' : 'default' }">
+            </mat-form-field>
+
+            <mat-form-field class="form_field">
+                <mat-label>Email</mat-label>
+                <input matInput autocomplete="off" formControlName="email"
+                    [ngStyle]="{'cursor': msmeFormGroup.get('email').disabled ? 'no-drop' : 'default' }">
+            </mat-form-field>
+
+            <mat-form-field class="form_field"
+                [ngStyle]="{'cursor': msmeFormGroup.get('msmeType').disabled ? 'no-drop' : 'default' }">
+                <mat-label class="label">MSME Type</mat-label>
+                <mat-select class="select" formControlName="msmeType"
+                    (selectionChange)="MsmeTypeSelection($event.value)">
+                    <!-- <mat-option value="OTH">Not Applicable</mat-option>
+                    <mat-option value="MIC">Micro Enterprise</mat-option>
+                    <mat-option value="SML">Small Enterprise</mat-option>
+                    <mat-option value="MID">Medium Enterprise</mat-option> -->
+                    <mat-option value="0001">Industry 0001</mat-option>
+                    <mat-option value="0002">Industry 0002</mat-option>
+                    <mat-option value="0003">Industry 0003</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="msmeFormGroup.get('msmeType').touched && msmeFormGroup.get('msmeType').hasError('required')">
+                    MSME Type Required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form_field">
+                <mat-label>UAN Number</mat-label>
+                <input matInput autocomplete="off" formControlName="uanNumber"
+                    [ngStyle]="{'cursor': msmeFormGroup.get('uanNumber').disabled ? 'no-drop' : 'default' }">
+            </mat-form-field>
+            <mat-form-field class="form_field">
+                <mat-label>Expiry Date</mat-label>
+                <input matInput [matDatepicker]="picker1" autocomplete="off" formControlName="expiryDate"
+                    [ngStyle]="{'cursor': msmeFormGroup.get('expiryDate').disabled ? 'no-drop' : 'default' }">
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                    <!-- <mat-icon matDatepickerToggleIcon svgIcon="calendarIcon"></mat-icon> -->
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <div fxFlex=100 fxLayout="row" fxLayoutAlign="start center" style="margin-top: 1rem;">
+                <button mat-raised-button color="primary" class="btn" (click)="fileInput.click()"
+                    *ngIf="isAttachmentEnabled">
+                    <mat-icon style="margin-right: 0.5rem;">attachment</mat-icon>
+                    Attachment
+                </button>
+                <input hidden type="file" #fileInput id="file" (change)="handleFileInput($event)"
+                    accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                <div fxFlex style="margin-left:8px" fxLayout="column" *ngIf="fileToUpload" (click)="GetAttachment()">
+                    <div fxFlex style="font-size: 10px; color: #1e8bed;
+                      cursor: pointer;">{{fileToUpload?.name}}</div>
+                    <div fxFlex style="font-size: 10px;">{{fileToUpload?.size}} KB</div>
+                </div>
+            </div>
+            <div fxFlex=100 fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1rem;">
+                <button [disabled]="!submitStatus" mat-raised-button color="primary" class="btn"
+                    (click)="handleSubmit()"
+                    [ngStyle]="{'cursor': !submitStatus ? 'no-drop' : 'pointer' }">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="bottom-container">
+        <div fxFlex=30 fxLayout="row" fxLayoutAlign="start center">
+            <label class="designby_txt">Designed by</label>
+            <img src="/assets/images/Exalca_logo (3).png" style="width: 7rem;">
+        </div>
+        <div fxFlex=30 fxLayout="row" fxLayoutAlign="center center">
+            <label [ngClass]="{'success1':Message=='**MSME Vendor Confirmed Successfully**',
+        'danger1':Message=='**Token might have already used or wrong token**'}"
+                *ngIf="Message!=null">{{Message}}</label>
+        </div>
+        <div fxFlex=30 fxLayout="row" fxLayoutAlign="start center"></div>
+
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#006FF2" type="ball-spin-clockwise" [fullScreen]="true">
+</ngx-spinner>

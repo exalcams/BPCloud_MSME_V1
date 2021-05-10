@@ -1,0 +1,82 @@
+.page{
+    width:100%;
+    height:100%;
+    background-color: #f8fbff;
+}
+.form-wrapper{
+    padding-top:2rem;
+    padding-bottom: 2rem;
+    padding-left: 3%;
+    padding-right: 3%;
+    background-color: white;
+    box-shadow: 0 5px 30px 0 rgba(0, 163, 239, 0.123);
+    width: 75%;
+    border-bottom: 3px solid #006FF2;
+}
+.form_field{
+    width: 46%;
+    margin-top: 1rem;
+}
+.toolbar{
+    height: 3rem;
+    width: 100%;
+    background: url("/assets/images/Header.png") no-repeat;
+    background-size: 100% 100%;
+}
+.title{
+    color: white;
+    font-family: Poppins-Semibold;
+    font-size: large;
+}
+.greetings{
+    color: white;
+    font-family: Poppins-Semibold;
+    font-size: 14px;
+    height: 4rem;
+    background-color: #EEB647;
+    border-radius: 3px;
+}
+.bottom-container{
+    width: 100%;
+    height: 11rem;
+    background: url("/assets/images/mainbg.png") no-repeat;
+    background-size: 100% 100%;
+    padding-left: 10%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.designby_txt{
+    color: #474F5B;
+    font-family: Poppins-Semibold;
+    font-size: 10px;
+    margin-right: 0.5rem;
+}
+.success1{
+    color: #26b329;
+    font-family: Poppins-Semibold;
+    font-size: 12px;
+}
+.danger1{
+    color: #d6201d;
+    font-family: Poppins-Semibold;
+    font-size: 12px;
+}
+::ng-deep .btn .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    background-color: #006FF2;
+}
+::ng-deep .form_field.mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: #006FF2;
+}
+::ng-deep .form_field.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #006FF2;
+}
+::ng-deep .form_field.mat-form-field-label,.mat-form-field-label.mat-focused,
+.mat-form-field.mat-focused.matform-field-should-float {
+    color: #006FF2;
+}
+::ng-deep .form_field.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: #006FF2;
+}
+::ng-deep .form_field.mat-form-field.mat-focused.mat-primary .mat-form-field-label {
+    color: #006FF2;
+}

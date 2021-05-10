@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+  font-family: Poppins-SemiBold;
+  src: url(assets/fonts/Poppins-SemiBold.ttf) format("opentype");
+}
+@font-face {
+  font-family: Poppins-Regular;
+  src: url(assets/fonts/Poppins-Regular.ttf) format("opentype");
+}
+@font-face {
+  font-family: Poppins-Medium;
+  src: url(assets/fonts/Poppins-Medium.ttf) format("opentype");
+}
+
+.success {
+    background-color: #26b329 !important;
+  }
+  
+  .danger {
+    background-color: #d6201d !important;
+  }
+  
+  .warning {
+    background-color: #ee9a2c !important;
+  }
+  
+  .info {
+    background-color: #1992ce !important;
+  }
+
+  .mat-snack-bar-container {
+    text-align: center;
+}
+
+.mat-simple-snackbar {
+    display: inline-block !important;
+}
+
+  .mat-dialog-container {
+    padding: 0px !important;
+    overflow: hidden !important;
+}
