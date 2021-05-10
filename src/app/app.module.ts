@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MsmeService } from './services/msme.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { NotificationSnackBarComponent } from './notifications/notification-snack-bar/notification-snack-bar.component';
 import { AttachmentDialogComponent } from './notifications/attachment-dialog/attachment-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ import { NotificationDialogComponent } from './notifications/notification-dialog
 import { ConfirmedComponent } from './pages/confirmed/confirmed.component';
 import { DatePipe } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [MsmeService, DatePipe, MatDatepickerModule],
+  providers: [MsmeService, DatePipe, MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-IN' }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [AttachmentDialogComponent, NotificationDialogComponent]
