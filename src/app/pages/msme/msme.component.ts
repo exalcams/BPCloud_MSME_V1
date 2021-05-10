@@ -13,6 +13,8 @@ import { AttachmentDialogComponent } from 'src/app/notifications/attachment-dial
 import { NotificationDialogComponent } from 'src/app/notifications/notification-dialog/notification-dialog.component';
 import { DatePipe } from '@angular/common';
 
+declare function getTxtFrmPdf(url: any, invoicenum: any): any;
+declare var Tesseract;
 @Component({
   selector: 'app-msme',
   templateUrl: './msme.component.html',
@@ -30,6 +32,9 @@ export class MsmeComponent implements OnInit {
   notificationSnackBarComponent: NotificationSnackBarComponent;
   isAttachmentEnabled = false;
   submitStatus = true;
+  array: any = ['msmeType', 'uanNumber', 'expiryDate'] ;
+  // tslint:disable-next-line:variable-name
+  array_value: any = [];
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -108,12 +113,145 @@ export class MsmeComponent implements OnInit {
         // this.router.navigate(['/auth/login']);
       });
   }
+  inputkey()
+  {
+    this.fileToUpload = null;
 
-  handleFileInput(evt): void {
+  }
+  // tslint:disable-next-line:typedef
+  async handleFileInput(evt) {
     if (evt.target.files && evt.target.files.length > 0) {
-      this.fileToUpload = evt.target.files[0];
+      // this.fileToUpload = evt.target.files[0];
+      // tslint:disable-next-line:comment-format
+      //change
+      const files = evt.target.files;
+      this.array_value = [];
+      // tslint:disable-next-line:variable-name
+     // tslint:disable-next-line:align
+     this.array_value.push(this.msmeFormGroup.get('msmeType').value) ;
+     // tslint:disable-next-line:align
+     this.array_value.push(this.msmeFormGroup.get('uanNumber').value);
+     // tslint:disable-next-line:align
+     const date=
+     this.array_value.push(( this._datePipe.transform( this.msmeFormGroup.get('expiryDate').value, 'MM/dd/yyyy')));
+      const count = 0; 
+      // Create a Blog object for selected file & define MIME type
+      const blob = new Blob(evt.target.files, { type: evt.target.files[0].type });
+    // tslint:disable-next-line:no-trailing-whitespace
+    // Create Blog URL  
+      const url = window.URL.createObjectURL(blob);
+
+      if (files.item(0).type === 'application/pdf') {
+        for(let i = 0; i < this.array.length; i++)
+        {
+        getTxtFrmPdf(url, this.array_value[i]).then((z) => {
+
+          console.log('textfromts:', z);
+          if (z < 1) {
+            if (this.array_value[i])
+            {
+              this.fileToUpload = null;
+              this.msmeFormGroup.get(this.array[i]).setErrors({ error: true });
+              this.msmeFormGroup.get(this.array[i]).markAsTouched();
+            }
+          }
+          else {
+            this.fileToUpload = evt.target.files[0];
+            // tslint:disable-next-line:no-unused-expression
+            this.msmeFormGroup.get(this.array[i]).valid;
+            this.msmeFormGroup.get(this.array[i]).setErrors(null);
+            this.msmeFormGroup.get(this.array[i]).markAsUntouched();
+            // this.fileToUpload = evt.target.files[0];
+          }
+        });
+      }
+
+    }
+    else{
+      this.spinner.show();
+      const tes = await this.Tesseract(url);
+
+      for(let i = 0; i < this.array.length; i++)
+      {
+        this.spinner.hide();
+      let x = 0;
+      let y = 0;
+
+      // tslint:disable-next-line:align
+      const text = tes.text;
+      const word = this.array_value[i];
+      console.log("text", text);
+
+      // tslint:disable-next-line:no-shadowed-variable
+      // tslint:disable-next-line:align
+      for (let i = 0; i < text.length; i++) {
+
+        if (text[i] === word[0]) {
+          for (let j = i; j < i + word.length; j++) {
+
+            if (text[j] === word[j - i]) {
+              y++;
+            }
+            if (y === word.length) {
+              x++;
+            }
+          }
+          y = 0;
+        }
+      }
+      // tslint:disable-next-line:align
+      if (x < 1) {
+        // this.isProgressBarVisibile = false;
+
+   
+
+        // tslint:disable-next-line:whitespace
+        if(this.array_value[i])
+        {
+          this.fileToUpload = null;
+          this.msmeFormGroup.get(this.array[i]).setErrors({ error: true });
+          this.msmeFormGroup.get(this.array[i]).markAsTouched();
+        }
+        // this.event_file = "";
+      } 
+
+      else {
+        // this.isProgressBarVisibile = false;
+
+        this.fileToUpload = evt.target.files[0];
+
+        // this.flipFormGroup.get('InvoiceNumber').valid;
+
+        // tslint:disable-next-line:no-unused-expression
+        this.msmeFormGroup.get(this.array[i]).valid;
+        this.msmeFormGroup.get(this.array[i]).setErrors(null);
+        this.msmeFormGroup.get(this.array[i]).markAsUntouched();
+
+      }
+    }
+    }
     }
   }
+
+
+  Tesseract(url): any {
+    let x = 0;
+    let y = 0;
+    // tslint:disable-next-line:typedef
+    // tslint:disable-next-line:only-arrow-functions
+    // tslint:disable-next-line:typedef
+    return Tesseract.recognize(url).then(function (result) {
+
+// alert(result)
+    }).then(() => {
+
+      return x;
+    });
+  }
+
+
+
+
 
   MsmeTypeSelection(type: string): void {
     if (type === 'OTH') {
@@ -122,6 +260,7 @@ export class MsmeComponent implements OnInit {
     }
     else {
       this.isAttachmentEnabled = true;
+      this.fileToUpload = null;
     }
   }
 

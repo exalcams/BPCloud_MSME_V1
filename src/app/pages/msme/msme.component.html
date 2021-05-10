@@ -17,7 +17,7 @@
         <form novalidate [formGroup]="msmeFormGroup" fxLayout="row wrap" fxLayoutAlign="space-between center">
             <mat-form-field class="form_field">
                 <mat-label>Vendor code</mat-label>
-                <input matInput autocomplete="off" formControlName="vendorCode"
+                <input matInput autocomplete="off" formControlName="vendorCode" 
                     [ngStyle]="{'cursor': msmeFormGroup.get('vendorCode').disabled ? 'no-drop' : 'default' }">
             </mat-form-field>
 
@@ -49,15 +49,18 @@
                 <mat-error
                     *ngIf="msmeFormGroup.get('msmeType').touched && msmeFormGroup.get('msmeType').hasError('required')">
                     MSME Type Required</mat-error>
+                    <mat-error *ngIf="msmeFormGroup.get('msmeType').hasError('error')">
+                        Please select a valid Attachment
+                      </mat-error>
             </mat-form-field>
             <mat-form-field class="form_field">
                 <mat-label>UAN Number</mat-label>
-                <input matInput autocomplete="off" formControlName="uanNumber"
+                <input matInput autocomplete="off" formControlName="uanNumber" (change)="inputkey()"
                     [ngStyle]="{'cursor': msmeFormGroup.get('uanNumber').disabled ? 'no-drop' : 'default' }">
             </mat-form-field>
             <mat-form-field class="form_field">
                 <mat-label>Expiry Date</mat-label>
-                <input matInput [matDatepicker]="picker1" autocomplete="off" formControlName="expiryDate"
+                <input matInput [matDatepicker]="picker1" autocomplete="off" formControlName="expiryDate" (change)="inputkey()"
                     [ngStyle]="{'cursor': msmeFormGroup.get('expiryDate').disabled ? 'no-drop' : 'default' }">
                 <mat-datepicker-toggle matSuffix [for]="picker1">
                     <!-- <mat-icon matDatepickerToggleIcon svgIcon="calendarIcon"></mat-icon> -->
